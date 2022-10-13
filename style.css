@@ -9,3 +9,7 @@ body{
     grid-template-columns: repeat(var(--grid-cols),1fr);
     grid-template-rows: repeat(var(--grid-rows),1fr);
 }
+
+button{
+    margin-bottom:10px;
+}
