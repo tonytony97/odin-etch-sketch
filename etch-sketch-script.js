@@ -1,34 +1,38 @@
-function makeGrid(dimensions){
+function makeGrid(dimensions = 16){
+
     const grid = document.createElement('div');
     grid.classList.add('grid');
-    grid.style.display='grid';
-    grid.style.border = 'solid black';
-    grid.style.setProperty('--grid-rows',dimensions);
-    grid.style.setProperty('--grid-cols',dimensions);
+    grid.style =`display: grid; border: solid black; height: 960px; width: 960px ;grid-template-columns: repeat(${dimensions},1fr);`;
 
-    for(i= 0;i<dimensions*dimensions;i++){
+    for( let i = 0 ; i<dimensions ** 2 ; i++ ){
+
         let square = document.createElement('div');
-        square.setAttribute('class','squares');
-        square.setAttribute('style','height: 16px; width: 16px;');
-        grid.appendChild(square);
-        
-    }
-  
-    container.appendChild(grid);
-    
-}
+        square.classList.add('squares');
+        grid.appendChild(square); 
 
+    }
+
+    container.appendChild(grid);
+
+    const squareColor = document.querySelectorAll('.squares');
+    squareColor.forEach((square) =>{
+
+        square.addEventListener('mouseover',(e)=>
+        e.target.style.background = 'red');
+
+    });
+
+}
 
 const container = document.querySelector('#container');
 const gridBtn = document.querySelector('#gridBtn');
-let gridSize = 16;
 
 gridBtn.addEventListener('click',function(){
-    gridSize = prompt("Enter new grid size");
+    const gridSize = Number(prompt("Enter new grid size"));
     const removeGrid = document.querySelector('.grid');
     
-    if(gridSize>100){
-        alert("That grid size is too big!");
+    if(gridSize>100 || gridSize <0 || gridSize === null){
+        alert("Enter a number higher than 0 or lower than 100!");
         return;
     }
     
@@ -36,18 +40,15 @@ gridBtn.addEventListener('click',function(){
         removeGrid.remove(); 
         makeGrid(gridSize);
     }
-    const squareColor = document.querySelectorAll('.squares');
+
+    /*const squareColor = document.querySelectorAll('.squares');
     squareColor.forEach((square) =>{
-    square.addEventListener('mouseover',(e)=>
-    e.target.style.background = 'red');
-});
-}) ; 
+        square.addEventListener('mouseover',(e)=>
+        e.target.style.background = 'red');
 
-makeGrid(gridSize);
+    });*/
+}); 
 
-const squareColor = document.querySelectorAll('.squares');
-squareColor.forEach((square) =>{
-    square.addEventListener('mouseover',(e)=>
-    e.target.style.background = 'red');
-});
+makeGrid();
+
 
